@@ -1,3 +1,5 @@
+import math
+
 def game_dict():
     return {
         "home": {
@@ -182,3 +184,85 @@ def game_dict():
             ]
         }
     }
+
+    pass
+
+#helper function
+def player_list(dict):
+    player_list = []   
+    for player in dict['home']['players']:
+        player_list.append(player)
+    for player in dict['away']['players']:
+        player_list.append(player)
+    return player_list
+
+players = player_list(game_dict())
+
+def num_points_per_game(name):
+    
+    for player in players:
+        if player['name'] == name:
+            return(player['points_per_game'])
+
+def player_age(name):
+    for player in players:
+        if player['name'] == name:
+            return(player['age'])
+#-------------------------------------------------#
+
+def team_list(dict):
+    teams_list = [dict['home'], dict['away']]    
+    return teams_list
+
+teams = team_list(game_dict())
+
+def team_colors(name):
+
+    for team in teams:
+        if team['team_name'] == name:
+            return team['colors']        
+
+def team_names():
+    team_noms = []
+    for team in teams:
+        team_noms.append(team['team_name'])
+    return team_noms
+
+def player_numbers(team_name):
+    numbers = []
+    for team in teams:
+        if team["team_name"] == team_name:
+            i = 0
+            while i < len(team["players"]):
+                numbers.append(team["players"][i]["number"])
+                i += 1
+    return numbers
+
+player_numbers("Washington Wizards")
+
+def player_stats(name):
+    for player in players:
+        if player['name'] == name:
+            return player
+
+def average_rebounds_by_shoe_brand():
+
+    stats = {}
+
+    for player in players:
+
+        shoe_brand = player["shoe_brand"]
+
+        if player["shoe_brand"] not in stats.keys():
+            shoe_brand = player["shoe_brand"]
+            stats[shoe_brand] = []
+
+        stats[shoe_brand].append(player['rebounds_per_game'])
+
+    for brand in stats:
+        average = sum(stats[brand]) / len(stats[brand])
+        print(f"{brand}:  {average:.2f}")
+    pass
+
+
+
